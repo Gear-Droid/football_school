@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load lc %}
+
+{% block header %}
+{% endblock header %}
+
+{% block style %}
+  .checkbox-xl .custom-control-label::before, 
+  .checkbox-xl .custom-control-label::after {
+    top: 1.2rem;
+    width: 1.85rem;
+    height: 1.85rem;
+  }
+
+  .checkbox-xl .custom-control-label {
+    padding-top: 23px;
+    padding-left: 10px;
+  }
+
+  #back-button {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+  }
+
+  #back-button:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+  .previous {
+    position: absolute;
+    width: 38px;
+    height: 40px;
+    margin-top: 21px;
+    left: 2vw;
+    background-color: #f1f1f1;
+    color: black;
+  }
+
+  .round {
+    border-radius: 50%;
+  }
+
+{% endblock style %}
+
+{% block intro %}
+  <nav aria-label="breadcrumb" class="">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="{% url 'private_cabinet' %}">Личный кабинет</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="{% url 'trainings_schedule' %}">Расписание</a>
+      </li>
+      <li class="breadcrumb-item active">Детали тренировки</li>
+    </ol>
+  </nav>
+  <div>
+    <a id='back-button' href="{% url 'trainings_schedule' %}" class="previous round">&#8249;</a>
+  </div>
+
+  {% comment %} <script>
+    window.onscroll = function() {myFunction()};
+
+    var back_button = document.getElementById("back-button");
+    var sticky = back_button.offsetTop;
+
+    function myFunction() {
+      if (window.pageYOffset > sticky - 90) {
+        back_button.classList.add("sticky");
+      } else {
+        back_button.classList.remove("sticky");
+      }
+    }
+  </script> {% endcomment %}
+{% endblock intro %}
+
+{% block content %}
+  <table class="table">
+      <tbody>
+          <tr>
+            <td><div>Дата тренировки</div></td>
+            <td><div>{{ training.date }}</div></td>
+          </tr>
+          <tr>
+            <td><div>Отделение</div></td>
+            <td><div>{{ training.department.name }}</div></td>
+          </tr>
+          <tr>
+            <td><div>Группа</div></td>
+            <td><div>{{ training.group.name }}</div></td>
+          </tr>
+          <tr>
+            <td><div>Время проведения</div></td>
+            <td><div>{{ training.starttime }} - {{ training.endtime }}</div></td>
+          </tr>
+          <tr>
+            <td><div>Состояние тренировки</div></td>
+            <td><div>{{ training_status }}</div></td>
+          </tr>
+          <tr>
+            <td><div>Заменяющие тренеры</div></td>
+            <td>
+              <div>
+                {% if not reserve_trainers %}-{% endif %}
+                {% for trainer in reserve_trainers %}
+                  <div>
+                    <b style="color: blue;">{{ trainer.person.user.first_name }} {{ trainer.person.user.last_name }}</b>
+                  </div>
+                {% endfor %}
+              </div>
+            </td>
+          </tr>
+      </tbody>
+  </table>
+
+  <div class="text-center mt-4"><h2>Журнал</h2></div>
+  <form action="{% url 'training_detail' training.pk %}" method="post">
+    {% csrf_token %}
+    {% for child in children %}
+      <div class="custom-control custom-checkbox checkbox-xl">
+        <input class="custom-control-input ml-5"
+          type="checkbox" id="flexCheck_{{ child.pk }}"
+          name="child" value="{{ child.pk }}"
+          {% if not_editable %}disabled{% endif %}
+          style="" {% if child.pk in training_children_pks %}checked{% endif %}>
+        <label class="custom-control-label" for="flexCheck_{{ child.pk }}">
+          {{ child.person.user.first_name }}
+          {{ child.person.user.last_name }}
+        </label>
+      </div>
+    {% endfor %}
+    <div class="mb-3"></div>
+    {% if not not_editable %}
+      <div><input class="btn-lg btn-block btn-success my-3" style="min-width: 170px"
+        type="submit" value="Отметить"></div>
+    {% endif %}
+  </form>
+  <div style="height: 20px;"></div>
+
+{% endblock content %}
+
+{% block prefooter %}
+{% endblock prefooter %}

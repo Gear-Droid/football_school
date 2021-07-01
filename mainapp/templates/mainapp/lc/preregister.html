@@ -1,0 +1,56 @@
+{% extends 'mainapp/lc/base.html' %}
+
+{% load static %}
+
+{% block style %}
+    .wrap-login100{
+        height: 370px;
+        padding-top: 60px;
+    }
+    .input100{
+        margin-bottom: 80px;
+    }
+	.alert{
+		border: 0px;
+		border-radius: 0px;
+	}
+	div.alert{
+		border-radius: 10px;
+		align-items: center;
+		z-index: 5;
+		position: absolute;
+		top: 14%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 90vw;
+		max-width: 22em;
+	}
+{% endblock style %}
+
+
+{% block form_container %}
+
+{% include 'mainapp/lc/feedback.html' %}
+
+    <div class="container-login100" style="background-image: url('{% static 'mainapp/login/footballer.jpg' %}');">
+
+        <div class="wrap-login100 p-l-55 p-r-55 p-t-40 p-b-30">
+            <form class="login100-form validate-form">
+                <span class="login100-form-title p-b-37">
+                    {{ Title }}
+                </span>
+
+                <div class="wrap-input100 m-b-20" data-validate="Введите корректный email">
+                    <input class="input100" type="text" name="email" placeholder="Введите email">
+                    <span class="focus-input100"></span>
+                </div>
+
+                <div class="container-login100-form-btn">
+                    <button class="login100-form-btn">
+                        Зарегистрироваться
+                    </button>
+                </div>
+            </form>
+        </div>
+  </div>
+{% endblock form_container %}

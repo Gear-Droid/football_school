@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load lc %}
+
+{% block header %}
+{% endblock header %}
+
+{% block style %}
+{% endblock style %}
+
+{% block intro %}
+<nav aria-label="breadcrumb" class="">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'private_cabinet' %}">Личный кабинет</a></li>
+    <li class="breadcrumb-item active">Выбор отделения</li>
+  </ol>
+</nav>
+{% endblock intro %}
+
+{% block content %}
+  {% for dep in departments %}
+    <a href="{% url 'department_packs_payment' dep.pk %}">
+      <div id="dep" class="btn btn-primary d-flex justify-content-center py-3 mb-2 text-center h5">
+        <b>{{ dep.pk }} - {{ dep.name }}</b>
+      </div>
+    </a>
+  {% endfor %}
+{% endblock content %}
+
+{% block prefooter %}
+{% endblock prefooter %}

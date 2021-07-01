@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load lc %}
+
+{% block header %}
+{% endblock header %}
+
+{% block style %}
+  #pack-block:hover {
+    background-color: aliceblue;
+  }
+{% endblock style %}
+
+{% block intro %}
+<nav aria-label="breadcrumb" class="">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'private_cabinet' %}">Личный кабинет</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'payment' %}">Выбор отделения</a></li>
+    <li class="breadcrumb-item active">Выбор пакета</li>
+  </ol>
+</nav>
+{% endblock intro %}
+
+{% block content %}
+  {% for pack in available_packs %}
+    <p class="h4 text-center"><b><em>Пакет - {{ pack.id }}</em></b></p>
+    <div id="pack-block" class="border border-primary rounded py-3 mb-4 text-center">
+      <p class="my-0 h4 mb-2">Число тренировок: <b>{{ pack.trainings_count }}</b></p>
+      <p class="my-0 h4 mb-2">Число заморозок: <b>{{ pack.trainings_freeze_count }}</b></p>
+      <hr style="background-color: dodgerblue;">
+      <p class="my-0 h4">Цена: <b>{{ pack.price }}</b></p>
+    </div>
+  {% endfor %}
+{% endblock content %}
+
+{% block prefooter %}
+{% endblock prefooter %}

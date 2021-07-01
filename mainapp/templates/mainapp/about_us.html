@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block intro %}
+{% endblock intro %}
+
+{% block style %}
+    .trainer-image{
+        width: 100vw;
+    }
+{% endblock style %}
+
+{% block content %}
+    <p class="text-center">Эффективная методика тренировок. Многолетний опыт известных тренеров. Программы, адаптированные для самых молодых спортсменов. Энтузиазм, азарт и дисциплина!</p>
+    <p class="text-center">Тренировочный процесс проводится сертифицированным тренерским штабом.</p>
+
+    <div class="container mb-5">
+        <img class="trainer-image d-block img-fluid"
+            src="{% static 'mainapp/about/trainers/trainer1.jpeg' %}" alt="trainer">
+    </div>
+{% endblock content %}

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}
+{% endblock header %}
+
+{% block style %}
+  .card{
+    border-radius: 10px;
+  }
+  .card-container{
+    padding: 5px; 
+    width: 92vw;
+    float: left;
+    height: 400px;
+    margin-bottom: 10px;
+  }
+  .card-title{
+    margin-bottom: 20px;
+  }
+  .card-body{
+    padding: 10px;
+  }
+  div.card-img-top {
+    width: 100%;
+    height: auto;
+  }
+{% endblock style %}
+
+{% block intro %}
+<nav aria-label="breadcrumb" class="">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'galery' %}">Галерея</a></li>
+    <li class="breadcrumb-item active">{{ galery.header }}</li>
+  </ol>
+</nav>
+{% endblock intro %}
+
+{% block content %}
+
+  {% for p in photo %}
+    <div class="pb-4">
+      <img src="{{ p.event_photo.url }}" alt="{{ p.pk }}. photo_in_galery_img" class="img-fluid">
+    </div>
+    {% comment %} 
+      <div class="card-container col-lg-4 col-md-6">
+        <div class="card h-100">
+          <a href="{{ galery.get_absolute_url }}">
+            <img class="card-img-top" src="{{ galery.event_photo.url }}" alt="{{ galery.pk }}. galery_img">
+          </a>
+          <div class="card-body">
+            <h6 class="card-title text-center">
+              <b>{{ galery.header }}</b>
+            </h6>
+            <p class="text-center">{{ galery.description }}</p>
+          </div>
+        </div>
+      </div>
+    {% endcomment %}
+  {% endfor %}
+
+{% endblock content %}

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+<link rel="icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Футбольная школа</title>
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <!-- Custom styles for this template -->
+  <!-- <link href="css/shop-homepage.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  {% block header %}
+  {% endblock header %}
+</head>
+<style>
+  .fa {
+    border-radius: 40px;
+    padding: 20px;
+    font-size: 30px;
+    width: 70px;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 2px;
+  }
+  .fa:hover {
+      opacity: 0.7;
+  }
+  .fa-youtube {
+    background: #bb0000;
+    color: white;
+  }
+  .fa-instagram {
+    color: #ffffff;
+    background: #f09433; 
+    background: -moz-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); 
+    background: -webkit-linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); 
+    background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); 
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f09433', endColorstr='#bc1888',GradientType=1 );
+  }
+  .ball_img{
+  object-fit: contain
+  display: inline-block;
+  max-width: 80%;
+  height: auto;
+  vertical-align: middle;
+  position: absolute;
+  top: 10px;
+  bottom: 0;
+  left: 20px;
+  right: 0;
+  }
+  .bg-dark{
+    background-color: #0c1d2e!important;
+  }
+  .title{
+    margin-top: 100px
+  }
+  .hello-video{
+    width: 100vw;
+  }
+  div.alert{
+    text-align: center;
+  }
+  body{
+    padding-top: 56px;
+    min-height: 100% !important;
+  }
+  html, body {
+    height: 100%;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+  .navbar-toggler > .navbar-toggler-icon {
+    background-image: url({% static 'mainapp/close-white.svg' %});
+    background-size: 18px 16px;
+  }
+  .collapsed > .navbar-toggler-icon {
+    background-image: url({% static 'mainapp/hamburger-white.svg' %});
+    background-size: 22px 20px;
+  }
+  .d-block {
+    margin: auto;
+  }
+  .carousel-control-next-icon, .carousel-control-prev-icon {
+  }
+  {% block style %}
+  {% endblock style %}
+</style>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'base' %}">Футбольная школа</a>
+      <div>
+        <img class="img-fluid" style="width: 40px;" src="{% static 'mainapp/footer/ball.png' %}" alt="Ball image">
+      </div>
+      <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="true" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="{% if Title == 'Главная страница' %} active {% endif %} nav-link" href="{% url 'base' %}">Главная</a>
+          </li>
+          <li class="nav-item">
+            <a class="{% if Title == 'О нас' %} active {% endif %} nav-link" href="{% url 'about_us' %}">О школе</a>
+          </li>
+          <li class="nav-item">
+            <a class="{% if Title == 'Галерея' %} active {% endif %} nav-link" href="{% url 'galery' %}">Галерея</a>
+          </li>
+          <li class="nav-item">
+            <a class="{% if Title == 'Контакты' %} active {% endif %} nav-link" href="{% url 'contacts' %}">Контакты</a>
+          </li>
+          <li class="{% if Title == 'Личный кабинет' %} active {% endif %} nav-item" style="display: flex;">
+            <a class="nav-link" href="{% url 'login_to_private_cabinet' %}">Личный кабинет
+              {% if request.user.is_authenticated %}
+                <span class="badge badge-pill badge-danger" style="margin-left:5px;">0</span>
+              {% endif %}
+            </a>
+          </li>
+          {% if request.user.is_authenticated %}
+            <li class="nav-item" style="display: flex;">
+              <span class="nav-link disabled">{{ request.user.first_name }} {{ request.user.last_name }}</span>
+              <a href="{% url 'logout' %}" style="margin: auto; margin-left: 25px;"> Выйти</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-success alert-dismissible fade show my-0" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  {% block intro %}
+    {% comment %}
+      <iframe width=100% height=400 class="hello-video"
+        src="https://www.youtube.com/embed/SOcMmrDYRd8?ontrols=0&mute=0&loop=1"
+        frameborder="0"
+        allow="autoplay;"
+        allowfullscreen>
+      </iframe>
+    {% endcomment %}
+    <video class="hello-video" 
+      autoplay
+      loop
+      playsinline
+      controls
+      muted
+      preload="auto">
+        <source src="{% static 'videos/MESSI_vs_RONALDO.mp4' %}">
+        <source src="{% static 'videos/MESSI_vs_RONALDO.mov' %}">
+        Your browser does not support the video tag. (Тег video не поддерживается вашим браузером.)
+    </video> 
+  {% endblock intro %}
+
+  <!-- Page Content -->
+  <div class="content container">
+    <h3 class="title mt-4 mb-5 text-center"><b>{{ Title }}</b></h3>
+    
+    <div class="row">
+      {% comment %}
+        <div class="col-lg-3"></div>
+      {% endcomment %}
+      <!-- /.col-lg-3 -->
+
+      <div id='content' class="col-lg-12">
+
+        {% block content %}
+          <p class="text-center">Эффективная методика тренировок. Многолетний опыт известных тренеров. Программы, адаптированные для самых молодых спортсменов. Энтузиазм, азарт и дисциплина!</p>
+          <p class="text-center">Тренировочный процесс проводится сертифицированным тренерским штабом.</p>
+
+          <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+              <div class="carousel-item active">
+                <img class="d-block img-fluid" src="{% static 'mainapp/carousel/slide1-900x365.jpg' %}" alt="First slide">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block img-fluid" src="{% static 'mainapp/carousel/slide2-900x365.jpg' %}" alt="Second slide">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block img-fluid" src="{% static 'mainapp/carousel/slide3-900x365.jpg' %}" alt="Third slide">
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+
+        {% endblock content %}
+      </div>
+      <!-- /.col-lg-9 -->
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  {% block prefooter %}
+  {% endblock prefooter %}
+
+  <!-- Footer -->
+  <footer id="footer" class="footer mt-auto py-4 bg-dark">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-9">
+          <div class="row mt-3">
+            <div class="col-3">
+              <img class="ball_img" src="{% static 'mainapp/footer/ball.png' %}" alt="Ball image">
+            </div>
+            <div class="col-9">
+              <p class="h6" style="color: #ffffff;">Тел.:
+                <a href="tel:+7 (999) 674-49-37">
+                  <p class="h6 ml-1">+7 (999) 674-49-37</p>
+                </a>
+              </p>
+              <p class="h6" style="color: #ffffff;">Почта:
+                <a href="mailto:vladi003@yandex.ru">
+                  <p class="h6 ml-1">vladi003@yandex.ru</p>
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-3">
+          <a href="#" class="fa fa-youtube float-right ml-2"></a>
+          <a href="#" class="fa fa-instagram float-right ml-2"></a>
+        </div>
+
+      </div>      
+      <!-- /.row -->
+
+      <div class="row d-flex justify-content-center mt-4">
+        <p class="m-0 text-center text-white">&copy; Футбольная школа м. Рассказовка 2020</p>
+      </div>
+    </div>
+    <!-- /.container -->
+
+  </footer>
+
+
+</body>
+</html>
