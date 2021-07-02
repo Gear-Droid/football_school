@@ -159,7 +159,6 @@ class PreRegisterView(View):
                             request, messages.INFO,
                             "Письмо отправлено на почту {}".format(email)
                         )
-                        PreRegisterUserEmail.objects.get_or_create(email=email)
                         return HttpResponseRedirect(reverse('base'))
         context = {
             'Title': 'Регистрация',

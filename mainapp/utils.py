@@ -51,7 +51,7 @@ def decrypt_it(encrypted, key):
 
 def make_registration_link(email, key):
     email = email.lower()
-    pre_reg_email = PreRegisterUserEmail.objects.get(email=email)
+    pre_reg_email, _ = PreRegisterUserEmail.objects.get_or_create(email=email)
     email_id = pre_reg_email.pk
     message = bytes(email + '-&id&-' + str(email_id), encoding='utf8')
     encrypted = encrypt_it(message, key).decode()
@@ -75,7 +75,7 @@ def send_invitation_to_register(email):
     send_mail(
         'Регистрация в личном кабинете',  # Тема письма
         message,  # Текст письма
-        'vladi003@yandex.ru',  # От кого
+        settings.EMAIL_HOST_USER,  # От кого
         [email],  # Кому
         fail_silently=False,
     )

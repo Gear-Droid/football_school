@@ -18,7 +18,7 @@ class RegisterUserForm(forms.ModelForm):
     last_name = forms.CharField(min_length=1, max_length=128, required=True)
     phone = forms.CharField(
         min_length=18, max_length=18,
-        widget=forms.TextInput(attrs={'data-mask':"+7 (000) 000-00-00"}),
+        widget=forms.TextInput(attrs={'data-mask': "+7 (000) 000-00-00"}),
         required=True,
         initial='+7 ('
     )
