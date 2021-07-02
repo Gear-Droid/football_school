@@ -147,8 +147,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'vladi003@yandex.ru'
-EMAIL_HOST_PASSWORD = 'zointhyrnouwfvmn'
+EMAIL_HOST_USER = 'fcRasskazovka@yandex.ru'
+EMAIL_HOST_PASSWORD = 'lamrambjqmbnymis'
 
 # cryptography
 CRYPTOGRAPHY_KEY = b'VEYLR_FTISEf5V57C5K1STpDoiKuN7gu3HEo1bjZYXM='
