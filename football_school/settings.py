@@ -148,7 +148,7 @@ EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'fcRasskazovka@yandex.ru'
-EMAIL_HOST_PASSWORD = 'lamrambjqmbnymis'
+EMAIL_HOST_PASSWORD = 'eztxwelchkblimnw'
 
 # cryptography
 CRYPTOGRAPHY_KEY = b'VEYLR_FTISEf5V57C5K1STpDoiKuN7gu3HEo1bjZYXM='
