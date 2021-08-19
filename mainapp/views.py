@@ -149,7 +149,8 @@ class PreRegisterView(View):
                     PreRegisterUserEmail.objects.get_or_create(email=email)
                     try:
                         send_invitation_to_register(email)
-                    except SMTPException:
+                    except SMTPException as err:
+                        print(err)
                         messages.add_message(
                             request, messages.INFO,
                             "Не удалось отправить письмо на почту {}".format(email)
@@ -166,30 +167,13 @@ class PreRegisterView(View):
         return render(request, 'mainapp/lc/preregister.html', context=context)
 
 
-def get_lower_email(bytes_message):
-    # try:
-    #     message = decrypt_it(wherefrom_bytes_message, key)
-    # except fernet.InvalidToken:
-    #     return HttpResponseRedirect(reverse('preregister_to_private_cabinet'))
-    key = settings.CRYPTOGRAPHY_KEY
-    message = decrypt_it(bytes_message, key)
-    email, email_id = message.split('-&id&-')
-    email = email.lower()
-    email_id = int(email_id)
-    # try:
-    #     email_id = int(email_id)
-    # except ValueError:
-    #     return HttpResponseRedirect(reverse('preregister_to_private_cabinet'))
-    return email_id, email
-
-
 class RegisterFormView(View):
 
     def get(self, request, *args, **kwargs):
         key = settings.CRYPTOGRAPHY_KEY
         wherefrom_bytes_message = bytes(kwargs.get('wherefrom'), "utf-8")
         try:
-            email_id, email = get_lower_email(wherefrom_bytes_message)
+            email_id, email = self.get_lower_email(wherefrom_bytes_message)
         except (ValueError, fernet.InvalidToken):
             return HttpResponseRedirect(reverse('preregister_to_private_cabinet'))
         form = RegisterUserForm(request.POST or None, initial={'email': email})
@@ -208,7 +192,7 @@ class RegisterFormView(View):
         key = settings.CRYPTOGRAPHY_KEY
         wherefrom_bytes_message = bytes(kwargs.get('wherefrom'), "utf-8")
         try:
-            email_id, email = get_lower_email(wherefrom_bytes_message)
+            email_id, email = self.get_lower_email(wherefrom_bytes_message)
         except (ValueError, fernet.InvalidToken):
             return HttpResponseRedirect(reverse('preregister_to_private_cabinet'))
         form = RegisterUserForm(request.POST or None, initial={'email': email})
@@ -249,6 +233,22 @@ class RegisterFormView(View):
             'form': form,
         }
         return render(request, 'mainapp/lc/register.html', context=context)
+
+    def get_lower_email(self, bytes_message):
+        # try:
+        #     message = decrypt_it(wherefrom_bytes_message, key)
+        # except fernet.InvalidToken:
+        #     return HttpResponseRedirect(reverse('preregister_to_private_cabinet'))
+        key = settings.CRYPTOGRAPHY_KEY
+        message = decrypt_it(bytes_message, key)
+        email, email_id = message.split('-&id&-')
+        email = email.lower()
+        email_id = int(email_id)
+        # try:
+        #     email_id = int(email_id)
+        # except ValueError:
+        #     return HttpResponseRedirect(reverse('preregister_to_private_cabinet'))
+        return email_id, email
 
 
 class PrivateCabinetView(LoginRequiredMixin, PersonMixin, View):

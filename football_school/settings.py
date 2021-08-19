@@ -13,10 +13,54 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_URL = 'localhost:8000'
+
+
+def skip_static_requests(record):
+    if record.args[0].startswith('GET /static/'):  # filter whatever you want
+        return False
+    return True
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        # use Django's built in CallbackFilter to point to your filter 
+        'skip_static_requests': {
+            '()': 'django.utils.log.CallbackFilter',
+            'callback': skip_static_requests
+        }
+    },
+    'formatters': {
+        # django's default formatter
+        'django.server': {
+            '()': 'django.utils.log.ServerFormatter',
+            'format': '[%(server_time)s] %(message)s',
+        }
+    },
+    'handlers': {
+        # django's default handler...
+        'django.server': {
+            'level': 'INFO',
+            'filters': ['skip_static_requests'],  # <- ...with one change
+            'class': 'logging.StreamHandler',
+            'formatter': 'django.server',
+        },
+    },
+    'loggers': {
+        # django's default logger
+        'django.server': {
+            'handlers': ['django.server'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    }
+}
 
 
 # Quick-start development settings - unsuitable for production
@@ -148,7 +192,7 @@ EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'fcRasskazovka@yandex.ru'
-EMAIL_HOST_PASSWORD = 'lamrambjqmbnymis'
+EMAIL_HOST_PASSWORD = 'ksqzssmldeksyjcd'
 
 # cryptography
 CRYPTOGRAPHY_KEY = b'VEYLR_FTISEf5V57C5K1STpDoiKuN7gu3HEo1bjZYXM='
