@@ -55,7 +55,8 @@ def make_registration_link(email, key):
     email_id = pre_reg_email.pk
     message = bytes(email + '-&id&-' + str(email_id), encoding='utf8')
     encrypted = encrypt_it(message, key).decode()
-    address = 'http://localhost:8000' + os.path.join(
+    # address = 'http://localhost:8000' + os.path.join(
+    address = 'http://' + settings.BASE_URL + os.path.join(
         settings.BASE_DIR, reverse(
             'register_to_private_cabinet',
             kwargs={'wherefrom': encrypted}
@@ -66,11 +67,8 @@ def make_registration_link(email, key):
 
 def send_invitation_to_register(email):
     key = settings.CRYPTOGRAPHY_KEY
-    try:
-        address = make_registration_link(email, key)
-    except ObjectDoesNotExist:
-        raise SMTPException("Не удалось отправить сообщение,  \
-            так как не найден email в очереди регистрации.")
+    address = make_registration_link(email, key)
+    print(address)
     message = address
     send_mail(
         'Регистрация в личном кабинете',  # Тема письма
