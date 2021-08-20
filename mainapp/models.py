@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth import get_user_model
+from django.contrib import admin
 
 
 User = get_user_model()
@@ -159,7 +160,7 @@ class Person(models.Model):
 
     def __str__(self):
         
-        return "id_{}: {} ({} {})".format(
+        return "{}. {} ({} {})".format(
             self.user.pk,
             self.user.username,
             self.user.first_name,
@@ -184,6 +185,14 @@ class Child(models.Model):
     trainings_freeze_count = models.PositiveIntegerField(
         default=0, verbose_name='Кол-во заморозок'
     )
+
+    def phone(self):
+        return self.person.phone
+    phone.short_description = "Телефон"
+
+    def email(self):
+        return self.person.user.email
+    email.short_description = "Адрес электронной почты"
 
     def __str__(self):
         return f"Ребенок: ({self.person})"
@@ -315,35 +324,25 @@ class Schedule(models.Model):
         verbose_name_plural = 'Расписание'
         unique_together = (
             (
-                'day',
+                'train_day',
                 'department',
                 'starttime',
                 'endtime',
             ), 
         )
 
-    MONDAY = 'monday'
-    TUESDAY = 'tuesday'
-    WEDNESDAY = 'wednesday'
-    THURSDAY = 'thursday'
-    FRIDAY = 'friday'
-    SATURDAY = 'saturday'
-    SUNDAY = 'sunday'
+    class Day(models.IntegerChoices):
+        MONDAY = 1
+        TUESDAY = 2
+        WEDNESDAY = 3
+        THURSDAY = 4
+        FRIDAY = 5
+        SATURDAY = 6
+        SUNDAY = 7
 
-    DAY_CHOICES = (
-        (MONDAY, 'Понедельник'),
-        (TUESDAY, 'Вторник'),
-        (WEDNESDAY, 'Среда'),
-        (THURSDAY, 'Четверг'),
-        (FRIDAY, 'Пятница'),
-        (SATURDAY, 'Суббота'),
-        (SUNDAY, 'Воскресенье'),
-    )
-
-    day = models.CharField(
-        max_length=9,
+    train_day = models.IntegerField(
         verbose_name='День тренировки',
-        choices=DAY_CHOICES,
+        choices=Day.choices,
     )
     groups = models.ManyToManyField(
         Group, verbose_name='Группы'
@@ -355,18 +354,18 @@ class Schedule(models.Model):
     endtime = models.TimeField(verbose_name='Время окончания тренировки')
 
     DAY_REPRESENTATION = {
-        MONDAY: 'Понедельник',
-        TUESDAY: 'Вторник',
-        WEDNESDAY: 'Среда',
-        THURSDAY: 'Четверг',
-        FRIDAY: 'Пятница',
-        SATURDAY: 'Суббота',
-        SUNDAY: 'Воскресенье',
+        1: 'Понедельник',
+        2: 'Вторник',
+        3: 'Среда',
+        4: 'Четверг',
+        5: 'Пятница',
+        6: 'Суббота',
+        7: 'Воскресенье',
     }
 
     def __str__(self):
         return '{} - {} ({}-{})'.format(
-            self.DAY_REPRESENTATION[self.day],
+            self.DAY_REPRESENTATION[self.train_day],
             self.department.name,
             self.starttime,
             self.endtime
