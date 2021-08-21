@@ -187,21 +187,3 @@ def get_not_editable(training):
     if delta.days > 0 or status_not_editable:
         not_editable = True
     return not_editable
-
-
-def recalculate_trainings():
-    for i in range(30):
-        training_date = datetime.date.today() + datetime.timedelta(days=i)
-        weekday_number = training_date.weekday() + 1
-        for schedule_training in Schedule.objects.filter(train_day=weekday_number):
-            for group in schedule_training.groups.all():
-                new_training, created = Training.objects.get_or_create(
-                    date=training_date,
-                    department=schedule_training.department,
-                    group=group,
-                    starttime=schedule_training.starttime,
-                    endtime =schedule_training.endtime,
-                    status ='not_stated',
-                )
-                if created:
-                    new_training.save()

@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 from django.contrib import admin
+from django.utils.html import format_html
 
 
 User = get_user_model()
@@ -186,6 +187,10 @@ class Child(models.Model):
         default=0, verbose_name='Кол-во заморозок'
     )
 
+    def groups(self):
+        return list(Group.objects.filter(children=self))
+    groups.short_description = "Группы"
+
     def phone(self):
         return self.person.phone
     phone.short_description = "Телефон"
@@ -263,8 +268,8 @@ class AgeCategory(models.Model):
     )
 
     def __str__(self):
-        return "{}. Категория: ({}-{})".format(
-            self.pk, self.min_age, self.max_age
+        return "{} - {}".format(
+            self.min_age, self.max_age
         )
 
 
@@ -286,10 +291,17 @@ class Group(models.Model):
         Child, verbose_name='Дети группы', blank=True
     )
 
+    def departments(self):
+        schedules_with_group = Schedule.objects.filter(groups=self)
+        uniques = set()
+        for schedule in schedules_with_group:
+            dep = schedule.department.name
+            uniques.add(dep)
+        return list(uniques)
+    departments.short_description = "Отделения"
+
     def __str__(self):
-        return "{}. Группа: ({})".format(
-            self.pk, self.name
-        )
+        return "{}".format(self.name)
 
 
 class Department(models.Model):
@@ -313,9 +325,7 @@ class Department(models.Model):
     )
 
     def __str__(self):
-        return "{}. Отделение: {}".format(
-            self.pk, self.name
-        )
+        return "{}".format(self.name)
 
 
 class Schedule(models.Model):
@@ -383,7 +393,6 @@ class Training(models.Model):
                 'group',
                 'starttime',
                 'endtime',
-                'status'
             ), 
         )
 
@@ -392,7 +401,7 @@ class Training(models.Model):
     STATUS_NOT_TOOK_PLACE = 'not_took_place'
 
     STATUS_CHOICES = (
-        (STATUS_NOT_STATED, 'Неопределенное'),
+        (STATUS_NOT_STATED, 'Неопределенный'),
         (STATUS_DONE, 'Выполнена'),
         (STATUS_NOT_TOOK_PLACE, 'Не состоялась'),
     )
@@ -404,8 +413,8 @@ class Training(models.Model):
     group = models.ForeignKey(
         Group, verbose_name='Группа', on_delete=models.CASCADE,
     )
-    starttime = models.TimeField(verbose_name='Время начала тренировки')
-    endtime = models.TimeField(verbose_name='Время окончания тренировки')
+    starttime = models.TimeField(verbose_name='Начало')
+    endtime = models.TimeField(verbose_name='Конец')
     children = models.ManyToManyField(
         Child, verbose_name='Дети присутствовавшие на тренировке', default=None, blank=True
     )
@@ -418,6 +427,25 @@ class Training(models.Model):
     reserve_trainers = models.ManyToManyField(
         Trainer, verbose_name='Заменяющие тренеры', default=None, blank=True
     )
+
+    STATUS_CASES = {
+        STATUS_NOT_STATED: '',
+        STATUS_DONE: '<span style="color:white; background-color: green;"><b>{0}</b></span>',
+        STATUS_NOT_TOOK_PLACE: '<span style="color:white; background-color: red;"><b>{0}</b></span>',
+    }
+    STATUS_REPRESENTATION = {
+        STATUS_NOT_STATED: 'Неопределенный',
+        STATUS_DONE: 'Выполнена',
+        STATUS_NOT_TOOK_PLACE: 'Не состоялась',
+    }
+    def colored_status(self):
+        if self.status == 'not_stated':
+            return self.STATUS_REPRESENTATION[self.status]
+        else:
+            return format_html(
+                self.STATUS_CASES[self.status], self.STATUS_REPRESENTATION[self.status]
+            )
+    colored_status.short_description = "Статус"
 
     def __str__(self):
         return '{}.{} - {} ({}-{})'.format(
