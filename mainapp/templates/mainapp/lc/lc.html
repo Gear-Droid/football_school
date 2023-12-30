@@ -5,24 +5,24 @@
 {% endblock header %}
 
 {% block style %}
-    th, td {
-        text-align: center !important;
-    }
-    td, th > * {
-        vertical-align : middle !important;
-    }
-    td.td-col-1 {
-		white-space: nowrap !important;
-	}
-    table tr td a {
-        display:block;
-        height:100%;
-        width:100%;
-    }
-    table tr td {
-        padding-left: 0;
-        padding-right: 0;
-    }
+  th, td {
+    text-align: center !important;
+  }
+  td, th > * {
+    vertical-align : middle !important;
+  }
+  td.td-col-1 {
+  white-space: nowrap !important;
+  }
+  table tr td a {
+    display:block;
+    height:100%;
+    width:100%;
+  }
+  table tr td {
+    padding-left: 0;
+    padding-right: 0;
+  }
 {% endblock style %}
 
 {% block intro %}
@@ -34,18 +34,20 @@
 {% endblock intro %}
 
 {% block content %}
-    <a href="{% url 'trainings_schedule' %}">
-        <div class="btn btn-primary d-flex justify-content-center py-3 mb-2"><b>Расписание</b></div>
+  <a href="{% url 'trainings_schedule' %}">
+    <div class="btn btn-primary d-flex justify-content-center py-3 mb-2"><b>Расписание</b></div>
+  </a>
+  {% if child_exists %}
+    <a href="{% url 'payment' %}">
+      <div class="btn btn-primary d-flex justify-content-center py-3"><b>Оплата</b></div>
     </a>
-    {% if child_exists %}
-        <a href="{% url 'payment' %}">
-            <div class="btn btn-primary d-flex justify-content-center py-3"><b>Оплата</b></div>
-        </a>
-    {% endif %}
+  {% endif %}
 
-    {% comment %}
-        <div class="text-center h3"> История оплат </div>
-    {% endcomment %}
+  {% comment %}
+    <div class="text-center h3"> История оплат </div>
+  {% endcomment %}
+
+  <div class="mb-6" style="height:40px"></div>
 
 {% endblock content %}
 

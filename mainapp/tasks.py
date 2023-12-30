@@ -17,8 +17,8 @@ def recalculate_trainings():
         ).first()
         if res is None:
             train.delete()
-
-    for i in range(30):
+    schedule_days_count = 92
+    for i in range(schedule_days_count):
         training_date = datetime.date.today() + datetime.timedelta(days=i)
         weekday_number = training_date.weekday() + 1
         for schedule_training in Schedule.objects.filter(train_day=weekday_number):

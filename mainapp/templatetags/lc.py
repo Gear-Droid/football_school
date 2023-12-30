@@ -40,7 +40,7 @@ TRAINING_STATUS = {
 def trainings_scheduler(schedule, header_tags, statuses, training_pks, is_trainer=None):        
     header = TABLE_HEAD_START
     for h_data in header_tags:
-        header += "<th scope='col'><span>{}</span></th>".format(h_data)
+        header += "<th scope='col'><span style='font-size:100%'>{}</span></th>".format(h_data)
     header += TABLE_HEAD_END
     table_body = ''
     for row, status, training_pk in zip(schedule, statuses, training_pks):
@@ -54,7 +54,7 @@ def trainings_scheduler(schedule, header_tags, statuses, training_pks, is_traine
             link, TRAINING_STATUS[status]
         )
         for k, value in enumerate(row):
-            table_body += "<td class='td-col-{}'><span>{}</span></td>".format(k, value)
+            table_body += "<td class='td-col-{}' style='min-width: 100px;'><span style='font-size:75%'>{}</span></td>".format(k, value)
         table_body += TABLE_ROW_END
 
     SCRIPT = """

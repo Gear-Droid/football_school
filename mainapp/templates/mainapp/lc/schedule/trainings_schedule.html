@@ -14,6 +14,10 @@
   td.td-col-1 {
   white-space: nowrap !important;
 	}
+  .status-text{
+    color: white;
+    text-shadow: 1px 1px 3px black;
+  }
   table tr td a {
       display:block;
       height:100%;
@@ -70,13 +74,13 @@
         class="table border center">
         <tbody>
             {% if is_trainer %}
-            <tr><td style="background-color: lawngreen;"><b>Проведена</b></td></tr>
+            <tr><td class="status-text" style="background-color: lawngreen;"><b>Проведена</b></td></tr>
             {% else %}
-            <tr><td style="background-color: lawngreen;"><b>Присутствовал</b></td></tr>
-            <tr><td style="background-color: crimson;"><b>Пропустил</b></td></tr>
+            <tr><td class="status-text" style="background-color: lawngreen;"><b>Присутствовал</b></td></tr>
+            <tr><td class="status-text" style="background-color: crimson;"><b>Пропустил</b></td></tr>
             {% endif %}
-            <tr><td style=""><b>Неопределенное состояние</b></td></tr>
-            <tr><td style="background-color: gold;"><b>Тренировка отменена</b></td></tr>
+            <tr><td class="status-text" style=""><b>Неопределенное состояние</b></td></tr>
+            <tr><td class="status-text" style="background-color: gold;"><b>Тренировка отменена</b></td></tr>
         </tbody>
     </table>
 

@@ -18,12 +18,14 @@
 
 {% block content %}
   {% for dep in departments %}
-    <a href="{% url 'department_packs_payment' dep.pk %}">
+    <a href="{% url 'department_packs' dep.pk %}">
       <div id="dep" class="btn btn-primary d-flex justify-content-center py-3 mb-2 text-center h5">
         <b>{{ dep.pk }} - {{ dep.name }}</b>
       </div>
     </a>
   {% endfor %}
+
+  <div class="mb-6" style="height:40px"></div>
 {% endblock content %}
 
 {% block prefooter %}

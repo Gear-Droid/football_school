@@ -188,11 +188,11 @@ STATICFILES_DIRS = (
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # EMAIL SEND
-EMAIL_HOST = 'smtp.yandex.ru'
-EMAIL_PORT = 587
+EMAIL_HOST = 'mail.hosting.reg.ru'
+EMAIL_PORT = 465
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'fcRasskazovka@yandex.ru'
-EMAIL_HOST_PASSWORD = 'ksqzssmldeksyjcd'
+EMAIL_HOST_USER = 'starskids@starskids.ru'
+EMAIL_HOST_PASSWORD = '67bTrCAv0CZV83Ci'
 
 # cryptography
 CRYPTOGRAPHY_KEY = b'VEYLR_FTISEf5V57C5K1STpDoiKuN7gu3HEo1bjZYXM='

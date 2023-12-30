@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load lc %}
+
+{% block header %}
+{% endblock header %}
+
+{% block style %}
+  #pack-block:hover {
+    background-color: aliceblue;
+  }
+{% endblock style %}
+
+{% block intro %}
+  <nav aria-label="breadcrumb" class="">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'private_cabinet' %}">Личный кабинет</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'payment' %}">Выбор отделения</a></li>
+      <li class="breadcrumb-item active">Выбор пакета</li>
+    </ol>
+  </nav>
+{% endblock intro %}
+
+{% block content %}
+  <div style='display:inline-flex; flex-wrap:wrap; align-items: center; justify-content: center;'>
+    {% for pack in available_packs %}
+      <div style='width:150px; margin:10px;'>
+        <p class="h5 text-center"><b><em>Пакет - {{ pack.pk }}</em></b></p>
+        <a href="{{ pack.pk }}">
+          <div id="pack-block" class="border border-primary rounded py-3 mb-4 text-center" style='max-width:220px; margin:auto;'>
+            <p style="font-size:80%" class="my-0 h4 mb-2">Число тренировок: <b>{{ pack.trainings_count }}</b></p>
+            <p style="font-size:80%" class="my-0 h4 mb-2">Число заморозок: <b>{{ pack.trainings_freeze_count }}</b></p>
+            <hr style="background-color: dodgerblue;">
+            <p style="font-size:80%" class="my-0 h4">Цена: <b>{{ pack.price }}</b></p>
+          </div>
+        </a>
+      </div>
+    {% empty %}
+      <div style="text-align: center;">
+        <em>Не найдено тренировочных пакетов в данном отделении, обратитесь к менеджеру</em>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock content %}
+
+{% block prefooter %}
+{% endblock prefooter %}

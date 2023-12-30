@@ -4,26 +4,26 @@
 {% load crispy_forms_tags %}
 
 {% block style %}
-    .wrap-login100{
-        max-width: 700px;
-        width: 90vw;
-    }
-    .input100{
-        margin-bottom: 80px;
-    }
-    .mb-3{
-        margin-top: 2rem!important;
-    }
-    label{
-        margin-bottom: 0px;
-        margin-left: 7px;
-    }
-    .form-group{
-        margin-bottom: 5px;
-    }
-    input.textinput{
-        font-family: 'SourceSansPro-SemiBold';
-    }
+  .wrap-login100{
+    max-width: 700px;
+    width: 90vw;
+  }
+  .input100{
+    margin-bottom: 80px;
+  }
+  .mb-3{
+    margin-top: 2rem!important;
+  }
+  label{
+    margin-bottom: 0px;
+    margin-left: 7px;
+  }
+  .form-group{
+    margin-bottom: 5px;
+  }
+  input.textinput{
+    font-family: 'SourceSansPro-SemiBold';
+  }
 {% endblock style %}
 
 {% include 'mainapp/lc/feedback.html' %}
@@ -41,14 +41,15 @@
                     <i style="color: gray; margin-left: 7px;">*Обязательные поля</i>
                 </span>
                 <div class="container-login100-form-btn">
-                    <button type="submit" class="login100-form-btn mb-3">
-                        Регистрация
-                    </button>
+                    <button type="submit" class="login100-form-btn mb-3">Регистрация</button>
                 </div>
             </form>
         </div>
   </div>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+  <!--===============================================================================================-->
+    <script src="{% static 'js/bootstrap-4.0.0-dist/js/jquery-3.3.1.min.js' %}"></script>
+  <!--===============================================================================================-->
+    <script src="{% static 'js/bootstrap-4.0.0-dist/js/jquery.mask.js' %}"></script>
+  <!--===============================================================================================-->
 {% endblock form_container %}
 

@@ -122,7 +122,7 @@ def get_trainings_schedule_for_child(child):
             result_Q = result_Q | (Q(group=group))
         today = datetime.date.today()
         trainings = Training.objects.filter(result_Q).filter(
-            date__range=[today-datetime.timedelta(days=40), today+datetime.timedelta(days=10)]
+            date__range=[today-datetime.timedelta(days=40), today+datetime.timedelta(days=40)]
         ).order_by('-date', '-starttime')
     else:
         trainings = []
@@ -149,7 +149,6 @@ def get_trainings_schedule_for_child(child):
             t.starttime.strftime("%H:%M"), t.endtime.strftime("%H:%M")
         )
         schedule_list.append((date, time, t.department))
-        print(schedule_list)
     return schedule_header, schedule_list, statuses, training_pks
 
 

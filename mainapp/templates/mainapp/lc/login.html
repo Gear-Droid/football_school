@@ -4,19 +4,19 @@
 {% load crispy_forms_tags %}
 
 {% block style %}
-    .mb-3{
-        margin-top: 2rem!important;
-    }
-    label{
-        margin-bottom: 0px;
-        margin-left: 7px;
-    }
-    .form-group{
-        margin-bottom: 5px;
-    }
-    input.textinput{
-        font-family: 'SourceSansPro-SemiBold';
-    }
+  .mb-3{
+    margin-top: 2rem!important;
+  }
+  label{
+    margin-bottom: 0px;
+    margin-left: 7px;
+  }
+  .form-group{
+    margin-bottom: 5px;
+  }
+  input.textinput{
+    font-family: 'SourceSansPro-SemiBold';
+  }
 {% endblock style %}
 
 {% include 'mainapp/lc/feedback.html' %}
@@ -35,20 +35,6 @@
 						Вход
 					</button>
                 </div>
-
-				{% comment %}
-					<div class="text-center p-t-57 p-b-20">
-						<span class="txt1">
-							Or login with
-						</span>
-					</div>
-
-					<div class="flex-c p-b-112">
-						<a href="#" class="login100-social-item">
-							<i class="fa fa-facebook-f"></i>
-						</a>
-					</div>
-				{% endcomment %}
 
 				<div class="text-center mt-4">
 					<a href="{% url 'preregister_to_private_cabinet' %}" class="txt2 hov1">

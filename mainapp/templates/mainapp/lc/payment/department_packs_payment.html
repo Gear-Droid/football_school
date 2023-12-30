@@ -8,6 +8,10 @@
   #pack-block:hover {
     background-color: aliceblue;
   }
+  td {
+    padding-left: 10px;
+    padding-bottom: 7px;
+  }
 {% endblock style %}
 
 {% block intro %}
@@ -15,21 +19,48 @@
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="{% url 'private_cabinet' %}">Личный кабинет</a></li>
     <li class="breadcrumb-item"><a href="{% url 'payment' %}">Выбор отделения</a></li>
-    <li class="breadcrumb-item active">Выбор пакета</li>
+    <li class="breadcrumb-item">Выбор пакета</li>
+    <li class="breadcrumb-item active">Оплата</li>
   </ol>
 </nav>
 {% endblock intro %}
 
 {% block content %}
-  {% for pack in available_packs %}
-    <p class="h4 text-center"><b><em>Пакет - {{ pack.id }}</em></b></p>
-    <div id="pack-block" class="border border-primary rounded py-3 mb-4 text-center">
-      <p class="my-0 h4 mb-2">Число тренировок: <b>{{ pack.trainings_count }}</b></p>
-      <p class="my-0 h4 mb-2">Число заморозок: <b>{{ pack.trainings_freeze_count }}</b></p>
-      <hr style="background-color: dodgerblue;">
-      <p class="my-0 h4">Цена: <b>{{ pack.price }}</b></p>
-    </div>
-  {% endfor %}
+<table border="1" style="min-width: -webkit-fill-available; margin-bottom: 40px;">
+  <!-- <tr>
+    <td><em>Отделение №</em></td><td><em><b>{{ dep_model.pk }}</b></em></td>
+  </tr> -->
+  <tr>
+    <td><em>Название отделения</em></td><td><em><b>{{ dep_model.name }}</b></em></td>
+  </tr>
+  <tr>
+    <td><em>Адрес отделения</em></td><td><em><b>{{ dep_model.address }}</b></em></td>
+  </tr>
+  <tr><td></td></tr>
+  <!-- <tr>
+    <td><em>Пакет №</em></td><td><em><b>{{ pack_model.pk }}</b></em></td>
+  </tr> -->
+  <tr>
+    <td><em>Кол-во тренировок</em></td><td><em><b>{{ pack_model.trainings_count }}</b></em></td>
+  </tr>
+  <tr>
+    <td><em>Кол-во заморозок</em></td><td><em><b>{{ pack_model.trainings_freeze_count }}</b></em></td>
+  </tr>
+  <tr>
+    <td><em>Цена</em></td><td><em><b>{{ pack_model.price }} руб.</b></em></td>
+  </tr>
+  <tr><td></td></tr>
+  <tr>
+    <td><em>Номер карты</em></td><td><em><b>4274 3200 4470 2630</b></em></td>
+  </tr>
+  <tr>
+    <td><em>ФИО</em></td><td><em><b>Иванов Петр Александрович</b></em></td>
+  </tr>
+  <tr><td></td></tr>
+  <tr>
+    <td><em>После оплаты, отправить чек на</em></td><td><em><b>WhatsApp:<br><a href="tel:+7 (999) 979-98-18">+7 (999) 979-98-18</a></b></em></td>
+  </tr>
+</table>
 {% endblock content %}
 
 {% block prefooter %}

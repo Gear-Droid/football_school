@@ -23,6 +23,7 @@ from .views import (
     GaleryView,
     GaleryDetailView,
     ContactsView,
+    SendApplication,
     PrivateCabinetView,
     LoginView,
     RegisterFormView,
@@ -31,8 +32,8 @@ from .views import (
     TrainingScheduleView,
     PaymentView,
     DepartmentPacksView,
+    DepartmentPacksPaymentView,
 )
-from django.views.generic import RedirectView
 
 
 urlpatterns = [
@@ -41,6 +42,7 @@ urlpatterns = [
     path('galery/', GaleryView.as_view(), name='galery'),
     path('galery/<str:slug>/', GaleryDetailView.as_view(), name='galery_detail'),
     path('contacts/', ContactsView.as_view(), name='contacts'),
+    path('send_application', SendApplication.as_view(), name='send_application'),
     path('lc/', PrivateCabinetView.as_view(), name='private_cabinet'),
     path('lc/login/', LoginView.as_view(), name='login_to_private_cabinet'),
     path('lc/logout/', LogoutView.as_view(next_page='/'), name='logout'),
@@ -53,5 +55,6 @@ urlpatterns = [
     path('lc/trainings_schedule/', TrainingScheduleView.as_view(), name='trainings_schedule'),
     path('lc/trainings_schedule/training/<int:training_pk>', TrainingDetailView.as_view(), name='training_detail'),
     path('lc/payment/', PaymentView.as_view(), name='payment'),
-    path('lc/payment/<int:department_id>/', DepartmentPacksView.as_view(), name='department_packs_payment'),
+    path('lc/payment/<int:department_id>/', DepartmentPacksView.as_view(), name='department_packs'),
+    path('lc/payment/<int:department_id>/<int:pack_id>', DepartmentPacksPaymentView.as_view(), name='department_packs_payment'),
 ]

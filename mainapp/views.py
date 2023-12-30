@@ -1,20 +1,18 @@
-import os
-import csv
+import telebot
 
 from smtplib import SMTPException
+from unicodedata import name
 from cryptography import fernet
 
 from django.db import transaction
 from django.shortcuts import render
-from django.views.generic import DetailView, View
+from django.views.generic import View
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.db.utils import IntegrityError
 from django.conf import settings
-from django.conf.urls.static import static
-from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
-from django.contrib.auth import get_user_model, authenticate, login
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import *
 from .utils import (
@@ -82,6 +80,29 @@ class GaleryDetailView(GaleryMixin, View):
         return render(request, 'mainapp/galery/galery_detail.html', context=context)
 
 
+class SendApplication(View):
+
+    def get(self, request, *args, **kwargs):
+        name, phone, age = request.GET.get('name'), request.GET.get('phone'), request.GET.get('age')
+        # Токен, который выдает @botfather
+        bot = telebot.TeleBot('5284601816:AAG1HmY4cDf2e5LQQuBHzvcpaQdlJyje4T0')
+        # Адрес телеграм-канала, начинается с @
+        CHAT_ID = '-1001751034019'
+        try:
+            bot.send_message(CHAT_ID, f'❗️❗️❗️ НОВАЯ ЗАЯВКА ❗️❗️❗️\n\n⚽️ имя: {name}\n📞 тел.: {phone}\n👦🏻 возраст ребенка: {age}')
+        except telebot.apihelper.ApiTelegramException:
+            messages.add_message(
+                request, messages.ERROR,
+                "Не удалось отправить Вашу заявку менеджеру, свяжитесь, пожалуйста, с нами по одному из контактов на сайте!"
+            )
+        else:
+            messages.add_message(
+                request, messages.INFO,
+                "Наш менеджер свяжется с Вами в ближайшее время!"
+            )
+        return HttpResponseRedirect(reverse('base'))
+
+
 class ContactsView(View):
 
     def get(self, request, *args, **kwargs):
@@ -131,6 +152,9 @@ class PreRegisterView(View):
 
     def get(self, request, *args, **kwargs):
         email = request.GET.get('email')
+        context = {
+            'Title': 'Регистрация',
+        }
         if email is not None:
             email = email.lower()
             validated = validate_email(email)
@@ -155,15 +179,13 @@ class PreRegisterView(View):
                             request, messages.INFO,
                             "Не удалось отправить письмо на почту {}".format(email)
                         )
+                        return render(request, 'mainapp/lc/preregister.html', context=context)
                     else:
                         messages.add_message(
                             request, messages.INFO,
                             "Письмо отправлено на почту {}".format(email)
                         )
                         return HttpResponseRedirect(reverse('base'))
-        context = {
-            'Title': 'Регистрация',
-        }
         return render(request, 'mainapp/lc/preregister.html', context=context)
 
 
@@ -420,5 +442,27 @@ class DepartmentPacksView(LoginRequiredMixin, PersonMixin, ChildExistsMixin, Vie
         context = {
             'Title': 'Выбор пакета тренировок',
             'available_packs': available_packs,
+        }
+        return render(request, 'mainapp/lc/payment/department_packs.html', context=context)
+
+
+class DepartmentPacksPaymentView(LoginRequiredMixin, PersonMixin, ChildExistsMixin, View):
+
+    login_url = '/lc/login/'
+    redirect_field_name = 'redirect_to'
+
+    def get(self, request, *args, **kwargs):
+        department_id = kwargs.get('department_id')
+        pack_id = kwargs.get('pack_id')
+        dep_model = Department.objects.filter(pk=department_id).first()
+        pack_model = dep_model.packs.filter(pk=pack_id).first()
+        if dep_model is None:
+            return HttpResponseRedirect(reverse('payment'))
+        if pack_model is None:
+            return HttpResponseRedirect(reverse('payment'))
+        context = {
+            'Title': 'Оплата выбранного пакета тренировок',
+            'dep_model': dep_model,
+            'pack_model': pack_model,
         }
         return render(request, 'mainapp/lc/payment/department_packs_payment.html', context=context)

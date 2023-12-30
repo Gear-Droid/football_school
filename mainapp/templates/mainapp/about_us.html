@@ -5,17 +5,43 @@
 {% endblock intro %}
 
 {% block style %}
-    .trainer-image{
-        width: 100vw;
-    }
+	.trainer-image{
+		width: 100vw;
+	}
+	p{
+		font-size: 110%;
+	}
 {% endblock style %}
 
 {% block content %}
-    <p class="text-center">Эффективная методика тренировок. Многолетний опыт известных тренеров. Программы, адаптированные для самых молодых спортсменов. Энтузиазм, азарт и дисциплина!</p>
-    <p class="text-center">Тренировочный процесс проводится сертифицированным тренерским штабом.</p>
-
-    <div class="container mb-5">
-        <img class="trainer-image d-block img-fluid"
-            src="{% static 'mainapp/about/trainers/trainer1.jpeg' %}" alt="trainer">
-    </div>
+	<p class="text-center">
+		Футбольная школа <b>«Star’s Kids»</b> - это<br>
+		инновационный подход к спортивной подготовке и футбольного индивидуального развития,<br>
+		который затрагивает самые основные аспекты воспитания молодых спортсменов:
+	</p>
+	<p class="text-center">
+		1. Понимание базиса тактической составляющей игры на поле<br>
+	</p>
+	<p class="text-center">
+		2. Обучение технике владения мячом и ее совершенствование<br>
+	</p>
+	<p class="text-center">
+		3. Понимание базиса тактической составляющей игры на поле<br>
+	</p>
+	<p class="text-center">
+		4. Воспитание личностных качеств игроков: воля к победе,<br>
+		принципы честной игры, командный дух, приверженность
+	</p>
+	<p class="text-center" style="font-size:150%;"><b>Участие в турнире</b></p>
+	<p class="text-center">
+		Дети участвую в локальных и массовых турнирах, показывая наивысший результат.<br>
+		У них появляется шанс попасть на высший уровень футбольного мастерства. Это один из первых шагов в профессиональный футбол.
+	</p>
+	<div class="container mb-5">
+		<img class="trainer-image d-block img-fluid"
+			src="{% static 'mainapp/about/trainers/trainer1.jpeg' %}" alt="trainer">
+	</div>
 {% endblock content %}
+
+{% block prefooter %}
+{% endblock prefooter %}

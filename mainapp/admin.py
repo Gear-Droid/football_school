@@ -47,6 +47,12 @@ class ScheduleAdmin(admin.ModelAdmin):
             kwargs['choices'] = self.DAY_CHOICES
         return super().formfield_for_choice_field(db_field, request, **kwargs)
 
+    def get_form(self, request, obj=None, **kwargs):
+        form = super(ScheduleAdmin, self).get_form(request, obj, **kwargs)
+        print(form.base_fields['starttime'].__dict__)
+        # form.base_fields['person'].label = 'Личность'
+        return form
+
 
 class GroupFilter(SimpleListFilter):
     title = 'Группа'
@@ -86,18 +92,20 @@ class ChildAdmin(admin.ModelAdmin):
             )
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
+    def get_form(self, request, obj=None, **kwargs):
+        form = super(ChildAdmin, self).get_form(request, obj, **kwargs)
+        form.base_fields['person'].label = 'Личность'
+        return form
+
 
 class TrainerAdmin(admin.ModelAdmin):
-    list_display = (
-        'person',  # 'groups', 'phone', 'email'
-    )
+    list_display = ('person', )
     search_fields = [
         'person__phone',
         'person__user__email',
         'person__user__first_name',
         'person__user__last_name',
     ]
-    # list_filter = (GroupFilter,)
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == 'person':
@@ -108,18 +116,20 @@ class TrainerAdmin(admin.ModelAdmin):
             )
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
+    def get_form(self, request, obj=None, **kwargs):
+        form = super(TrainerAdmin, self).get_form(request, obj, **kwargs)
+        form.base_fields['person'].label = 'Личность'
+        return form
+
 
 class ManagerAdmin(admin.ModelAdmin):
-    list_display = (
-        'person',  # 'groups', 'trainings_count', 'trainings_freeze_count', 'phone', 'email'
-    )
+    list_display = ('person', )
     search_fields = [
         'person__phone',
         'person__user__email',
         'person__user__first_name',
         'person__user__last_name',
     ]
-    # list_filter = (GroupFilter,)
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == 'person':
@@ -129,6 +139,11 @@ class ManagerAdmin(admin.ModelAdmin):
                 Person.objects.exclude(pk__in=trainers_pk+children_pk)
             )
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super(ManagerAdmin, self).get_form(request, obj, **kwargs)
+        form.base_fields['person'].label = 'Личность'
+        return form
 
 
 class AgeCategoryFilter(SimpleListFilter):
