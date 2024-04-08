@@ -2,8 +2,4 @@
 *.py[cod]
 *.log
 *$py.class
-static/
 *.sqlite3
-__init__.py
-football_school/mainapp/migrations/
-football_school/file_caches/
