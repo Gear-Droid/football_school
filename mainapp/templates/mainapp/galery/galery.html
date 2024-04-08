@@ -5,6 +5,9 @@
 {% endblock header %}
 
 {% block style %}
+  body {
+    background: white;
+  }
   .card{
     border-radius: 10px;
   }
@@ -37,32 +40,29 @@
 {% endblock style %}
 
 {% block intro %}
-<nav aria-label="breadcrumb" class="">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item active">Галерея</li>
-  </ol>
-</nav>
 {% endblock intro %}
 
 {% block content %}
   <!-- Навигация по галереям -->
-  {% for galery in galery_catalog %}
-    <div class="card-container col-lg-4 col-md-6">
-      <div class="card h-100">
-        <div class="card-img-div" style="overflow: hidden;">
-          <a href="{{ galery.get_absolute_url }}">
-            <img class="card-img-top center-cropped"  src="{{ galery.galery_photo.url }}" alt="{{ galery.pk }}. galery_img">
-          </a>
-        </div>
-        <div class="card-body">
-          <h6 class="card-title text-center">
-            <b>{{ galery.header }}</b>
-          </h6>
-          <p class="text-center">{{ galery.description|linebreaks }}</p>
+  {% comment "" %}
+    {% for galery in galery_catalog %}
+      <div class="card-container col-lg-4 col-md-6">
+        <div class="card h-100">
+          <div class="card-img-div" style="overflow: hidden;">
+            <a href="{{ galery.get_absolute_url }}">
+              <img class="card-img-top center-cropped"  src="{{ galery.galery_photo.url }}" alt="{{ galery.pk }}. galery_img">
+            </a>
+          </div>
+          <div class="card-body">
+            <h6 class="card-title text-center">
+              <b>{{ galery.header }}</b>
+            </h6>
+            <p class="text-center">{{ galery.description|linebreaks }}</p>
+          </div>
         </div>
       </div>
-    </div>
-  {% endfor %}
+    {% endfor %}
+  {% endcomment %}
 {% endblock content %}
 
 {% block prefooter %}

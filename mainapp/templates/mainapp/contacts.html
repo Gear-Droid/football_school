@@ -58,10 +58,18 @@
   </script>
 {% endblock header %} 
 
+{% block style %}
+  body {
+    background: white;
+  }
+{% endblock style %}
+
 {% block intro %}
 {% endblock intro %}
 
 {% block content %}
+  <h5 class="title">{{ Title }}</h5>
+
   <table class="table">
     <tbody>
       <tr>

@@ -60,7 +60,7 @@ class GaleryView(GaleryMixin, View):
     def get(self, request, *args, **kwargs):
         galery_catalog = self.galery.order_by('-pk')
         context = {
-            'Title': 'Галерея',
+            'Title': 'Футбольные сборы',
             'galery_catalog': galery_catalog,
         }
         return render(request, 'mainapp/galery/galery.html', context=context)
