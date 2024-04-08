@@ -3,3 +3,4 @@
 *.log
 *$py.class
 *.sqlite3
+settings.py
