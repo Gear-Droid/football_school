@@ -1,6 +1,9 @@
 ﻿__pycache__/
 *.py[cod]
+*cpython-38*
 *.log
 *$py.class
 *.sqlite3
 settings.py
+static_dev/
+tmp/
