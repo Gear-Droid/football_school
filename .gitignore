@@ -7,3 +7,5 @@
 settings.py
 static_dev/
 tmp/
+media/
+football_school/__pycache__

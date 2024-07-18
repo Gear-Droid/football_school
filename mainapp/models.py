@@ -128,6 +128,26 @@ class PhotoInGalery(models.Model):
         return f"{self.galery.header}: Фото-{self.pk}"
 
 
+class PhotoInGaleryInline(admin.StackedInline):
+
+    model = PhotoInGalery
+    extra = 1
+
+
+class GaleryAdmin(admin.ModelAdmin):
+    # Поле slug будет заполнено на основе поля description
+    prepopulated_fields = {"slug": ("description", )}
+
+    class Meta:
+        model = Galery
+
+    def save_model(self, request, obj, form, change):
+        obj.save()
+
+        for afile in request.FILES.getlist('photos_multiple'):
+            PhotoInGalery.objects.get_or_create(galery=obj, event_photo=afile)
+
+
 class News(models.Model):
 
     class Meta:

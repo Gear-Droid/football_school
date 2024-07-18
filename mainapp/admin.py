@@ -20,15 +20,25 @@ from .models import (
 )
 
 
-class GaleryAdminForm(ModelForm):
+class PhotoInGaleryInline(admin.StackedInline):
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    model = PhotoInGalery
+    extra = 1
 
 
 class GaleryAdmin(admin.ModelAdmin):
     # Поле slug будет заполнено на основе поля header
     prepopulated_fields = {"slug": ("header", )}
+    inlines = [PhotoInGaleryInline, ]
+
+    class Meta:
+        model = Galery
+
+    def save_model(self, request, obj, form, change):
+        obj.save()
+
+        for afile in request.FILES.getlist('photos_multiple'):
+            PhotoInGalery.objects.get_or_create(galery=obj, event_photo=afile)
 
 
 class ScheduleAdmin(admin.ModelAdmin):

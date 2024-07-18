@@ -6,30 +6,38 @@
 
 {% block style %}
   body {
-    background: white;
+    background: #152237;
   }
-  .card{
-    border-radius: 10px;
+  .gallery-card{
+    padding: 0;
   }
   .card-container{
-    padding: 5px; 
-    width: 92vw;
+    flex-flow: wrap;
+    width: 100vw;
     float: left;
-    height: 460px;
     margin-bottom: 10px;
+    overflow-x: hidden;
+  }
+  .gallery-card:nth-child(4n),
+    .gallery-card:nth-child(4n + 1){
+    background: white;
+  }
+  .gallery-card:nth-child(4n) .card-title,
+    .gallery-card:nth-child(4n + 1) .card-title{
+    color: #152237;
   }
   .card-title{
-    margin-bottom: 20px;
+    padding-left: 5vw;
+    color: white;
   }
   .card-body{
-    margin-top: 10px;
-    padding: 5px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 10px;
+    padding-left: 0px;
   }
   .card-img-div{
     align-self: center;
-    width: 330px;
+    width: 100vw;
+    max-width: 100%;
   }
   .card-img-top {
     margin: auto;
@@ -43,26 +51,30 @@
 {% endblock intro %}
 
 {% block content %}
+  <h5 class="title" style="color: white">{{ Title }}</h5>
+
   <!-- Навигация по галереям -->
-  {% comment "" %}
+  <div class="card-container d-flex w-100">
     {% for galery in galery_catalog %}
-      <div class="card-container col-lg-4 col-md-6">
-        <div class="card h-100">
-          <div class="card-img-div" style="overflow: hidden;">
-            <a href="{{ galery.get_absolute_url }}">
-              <img class="card-img-top center-cropped"  src="{{ galery.galery_photo.url }}" alt="{{ galery.pk }}. galery_img">
-            </a>
-          </div>
-          <div class="card-body">
-            <h6 class="card-title text-center">
-              <b>{{ galery.header }}</b>
-            </h6>
-            <p class="text-center">{{ galery.description|linebreaks }}</p>
-          </div>
+      <div class="gallery-card col-lg-6">
+        <div class="card-body">
+          <h6 class="card-title">
+            {{ galery.header }}
+          </h6>
+          {% comment "" %}<p class="text-center">{{ galery.description|linebreaks }}</p>{% endcomment %}
+        </div>
+        <div class="card-img-div " style="max-width: 100%">
+          <a href="{{ galery.get_absolute_url }}">
+            <img class="d-block card-img-top center-cropped" src="{{ galery.galery_photo.url }}" alt="{{ galery.pk }}. galery_img">
+          </a>
         </div>
       </div>
     {% endfor %}
-  {% endcomment %}
+  </div>
+
+  <div class="content" style="min-height: 10px;">
+    {% include "request.html" %}
+  </div>
 {% endblock content %}
 
 {% block prefooter %}

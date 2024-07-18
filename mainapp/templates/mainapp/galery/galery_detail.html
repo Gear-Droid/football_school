@@ -5,58 +5,43 @@
 {% endblock header %}
 
 {% block style %}
-  .card{
-    border-radius: 10px;
+  .breadcrumb{
+    margin: 10px;
+    background: none;
   }
-  .card-container{
-    padding: 5px; 
-    width: 92vw;
-    float: left;
-    height: 400px;
-    margin-bottom: 10px;
-  }
-  .card-title{
-    margin-bottom: 20px;
-  }
-  .card-body{
-    padding: 10px;
+  .breadcrumb a{
+    color: white;
+    text-decoration: none;
   }
   div.card-img-top {
-    width: 100%;
-    height: auto;
+    width: auto;
+    max-width: 400px;
+    max-height: 400px;
+  }
+  .content {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-between;
   }
 {% endblock style %}
 
 {% block intro %}
 <nav aria-label="breadcrumb" class="">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="{% url 'galery' %}">Галерея</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'galery' %}">{{ Title }}</a></li>
     <li class="breadcrumb-item active">{{ galery.header }}</li>
   </ol>
 </nav>
 {% endblock intro %}
 
 {% block content %}
-
-  {% for p in photo %}
-    <div class="pb-4">
-      <img src="{{ p.event_photo.url }}" alt="{{ p.pk }}. photo_in_galery_img" class="img-fluid">
-    </div>
-    {% comment %} 
-      <div class="card-container col-lg-4 col-md-6">
-        <div class="card h-100">
-          <a href="{{ galery.get_absolute_url }}">
-            <img class="card-img-top" src="{{ galery.event_photo.url }}" alt="{{ galery.pk }}. galery_img">
-          </a>
-          <div class="card-body">
-            <h6 class="card-title text-center">
-              <b>{{ galery.header }}</b>
-            </h6>
-            <p class="text-center">{{ galery.description }}</p>
-          </div>
-        </div>
+  <div class="content" style="min-height: 100px;">
+    {% for p in photo %}
+      <div class="card-img-top col-md-4">
+        <img src="{{ p.event_photo.url }}" alt="{{ p.pk }}. photo_in_galery_img" class="img-fluid">
       </div>
-    {% endcomment %}
-  {% endfor %}
+    {% endfor %}
 
+    {% include "request.html" %}
+  </div>
 {% endblock content %}

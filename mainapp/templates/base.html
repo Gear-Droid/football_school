@@ -364,7 +364,7 @@
             <a class="nav-link" href="{% url 'about_us' %}">О школе</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'galery' %}">Футбольные сборы</a>
+            <a class="nav-link" href="{% url 'galery' %}">Футбольный лагерь</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'contacts' %}">Контакты</a>
@@ -446,7 +446,7 @@
       <div class="carousel-item active">
         <img class="d-block" src="{% static 'mainapp/carousel/football.jpg' %}" alt="First slide">
         <div class="carousel-caption">
-          <h5>Детская футбольная школа для детей в Москве<br>«Star’s Kids»</h5>
+          <h5 style="text-wrap: wrap;">Детская футбольная школа для детей в Москве<br>«Star’s Kids»</h5>
           <p class="mb-5">Для детей разного уровня подготовки: от 3 до 16 лет</p>
           <a href="#entry" type="button" class="btn btn-primary">Записаться</a>
           <a href="#about" type="button" class="btn btn-link">Подробнее</a>
@@ -505,28 +505,8 @@
       <!-- /about row -->
 
       <!-- registration row -->
-      <div id="entry" class="row registration-container">
-        <div class="container p-5">
-          <h5 class="mb-5">Запись на бесплатную пробную тренировку</h5>
-          <form id="data" action="/send_application">
-            <div class="form-row py-5">
-              <div class="form-group col-md-6">
-                <input id="NameInput" class="form-control" type="text" placeholder="Имя" name="name" required>
-              </div>
-              <div class="form-group col-md-6">
-                <input id="PhoneInput" class="form-control" type="tel" aria-describedby="phoneHelp" placeholder="Контактный номер телефона" name="phone" pattern="\+7 \([0-9]{3}\) [0-9]{3}-[0-9]{2}-[0-9]{2}" required>
-                <small id="phoneHelp" class="form-text text-muted">На этот номер в ближайшее время поступит звонок.</small>
-              </div>
-              <div class="form-group col-md-6">
-                <input id="AgeInput" class="form-control" type="number" min="1" max="99" placeholder="Возраст ребенка" name="age">
-              </div>
-            </div>
-          </form>
-          <input id='submit-btn' class='btn btn-primary mt-5' type='submit' value='Отправить заявку' form='data'></button>
-        </div>
-      </div>
+      {% include "request.html" %}
       <!-- /registration row -->
-
     </div>
     <!-- /.container -->
   {% endblock content %}
