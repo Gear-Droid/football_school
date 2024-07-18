@@ -130,7 +130,10 @@
   .content h6, .content p {
     color: rgba(255, 255, 255, 0.5);
   }
-  .content h5 {
+  .h5 {
+    text-align: left;
+  }
+  .content h5, .h5 {
     font-family: Inter;
     font-size: 40px;
   }
@@ -219,7 +222,7 @@
     color: #FFF;
     font-family: Inter;
   }
-  .carousel-item .carousel-caption h5 {
+  .carousel-item .carousel-caption h5, .h5 {
     font-size: 88px;
     font-weight: 700;
     line-height: 96px;
@@ -301,7 +304,7 @@
     .carousel-item .carousel-caption {
       top: 95px;
     }
-    .carousel-item .carousel-caption h5, .content h5 {
+    .carousel-item .carousel-caption h5, .content h5, .h5 {
       font-size: 32px;
       line-height: 42px;
     }
@@ -446,7 +449,7 @@
       <div class="carousel-item active">
         <img class="d-block" src="{% static 'mainapp/carousel/football.jpg' %}" alt="First slide">
         <div class="carousel-caption">
-          <h5 style="text-wrap: wrap;">Детская футбольная школа для детей в Москве<br>«Star’s Kids»</h5>
+          <div class="h5" style="text-wrap: wrap;">Детская футбольная школа для детей в Москве<br>«Star’s Kids»</div>
           <p class="mb-5">Для детей разного уровня подготовки: от 3 до 16 лет</p>
           <a href="#entry" type="button" class="btn btn-primary">Записаться</a>
           <a href="#about" type="button" class="btn btn-link">Подробнее</a>
