@@ -1,5 +1,6 @@
 import os
 
+from . import local_settings
 
 """
 Django settings for football_school project.
@@ -76,7 +77,6 @@ ALLOWED_HOSTS = ['*', ]
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -128,9 +128,9 @@ WSGI_APPLICATION = 'football_school.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'football_school',
-        'USER': 'admin',
-        'PASSWORD': 'admin',
+        'NAME': local_settings.DEFAULT_DATABASE_NAME,
+        'USER': local_settings.DEFAULT_DATABASE_USER,
+        'PASSWORD': local_settings.DEFAULT_DATABASE_PASSWORD,
         'HOST' : '127.0.0.1',
         'PORT' : '5432',
     }
@@ -188,13 +188,13 @@ STATICFILES_DIRS = (
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # EMAIL SEND
-EMAIL_HOST = 'mail.hosting.reg.ru'
-EMAIL_PORT = 465
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'starskids@starskids.ru'
-EMAIL_HOST_PASSWORD = '67bTrCAv0CZV83Ci'
+EMAIL_HOST = local_settings.EMAIL_HOST
+EMAIL_PORT = local_settings.EMAIL_PORT
+EMAIL_USE_TLS = local_settings.EMAIL_USE_TLS
+EMAIL_HOST_USER = local_settings.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = local_settings.EMAIL_HOST_PASSWORD
 
 # cryptography
-CRYPTOGRAPHY_KEY = b'VEYLR_FTISEf5V57C5K1STpDoiKuN7gu3HEo1bjZYXM='
+CRYPTOGRAPHY_KEY = local_settings.CRYPTOGRAPHY_KEY
 
 LOGIN_URL = os.path.join(BASE_DIR, "lc/login/")

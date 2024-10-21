@@ -4,7 +4,7 @@
 *.log
 *$py.class
 *.sqlite3
-football_school/settings.py
+football_school/local_settings.py
 static_dev/
 tmp/
 media/
