@@ -68,7 +68,7 @@ LOGGING = {
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '617@vfo%6a7jy(z80l2(@mvtv0@*!*l(c(i8=q*x3n4&4l=h!x'
+SECRET_KEY = local_settings.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -127,7 +127,7 @@ WSGI_APPLICATION = 'football_school.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': local_settings.DEFAULT_DATABASE_ENGINE,
         'NAME': local_settings.DEFAULT_DATABASE_NAME,
         'USER': local_settings.DEFAULT_DATABASE_USER,
         'PASSWORD': local_settings.DEFAULT_DATABASE_PASSWORD,
