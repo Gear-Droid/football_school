@@ -112,6 +112,15 @@ class ContactsView(View):
         return render(request, 'mainapp/contacts.html', context=context)
 
 
+class FilialsView(View):
+
+    def get(self, request, *args, **kwargs):
+        context = {
+            'Title': 'Наши филиалы',
+        }
+        return render(request, 'mainapp/filials.html', context=context)
+
+
 class LoginView(View):
 
     def get(self, request, *args, **kwargs):

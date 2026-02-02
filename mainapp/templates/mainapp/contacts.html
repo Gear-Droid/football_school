@@ -4,58 +4,7 @@
 {% block header %}
   <script src="{% static 'js/bootstrap-4.0.0-dist/js/yandex.js' %}" type="text/javascript"></script>
   <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
-  <!-- Создаём карту -->
-  <script type="text/javascript">
-      // Функция ymaps.ready() будет вызвана, когда
-      // загрузятся все компоненты API, а также когда будет готово DOM-дерево.
-      ymaps.ready(init);
-  
-      function init() {
-          // Создание карты.
-          // https://tech.yandex.ru/maps/doc/jsapi/2.1/dg/concepts/map-docpage/
-          var myMap = new ymaps.Map("map", {
-              // Координаты центра карты.
-              // Порядок по умолчнию: «широта, долгота».
-              center: [55.763903, 37.437415],
-              // Уровень масштабирования. Допустимые значения:
-              // от 0 (весь мир) до 19.
-              zoom: 13,
-              // Элементы управления
-              // https://tech.yandex.ru/maps/doc/jsapi/2.1/dg/concepts/controls/standard-docpage/
-              controls: [
-                  'zoomControl', // Ползунок масштаба
-                  // 'rulerControl', // Линейка
-                  // 'routeButtonControl', // Панель маршрутизации
-                  // 'trafficControl', // Пробки
-                  'typeSelector', // Переключатель слоев карты
-                  'fullscreenControl', // Полноэкранный режим
-  
-                  // Поисковая строка
-                  // new ymaps.control.SearchControl({
-                  //     options: {
-                  //         // вид - поисковая строка
-                  //         size: 'large',
-                  //         // Включим возможность искать не только топонимы, но и организации.
-                  //         provider: 'yandex#search'
-                  //     }
-                  // }) 
-              ]
-          });
-          myMap.behaviors.disable('scrollZoom'); // — это отключает зум колёсиком мышки, всё ок.
-          // Добавление метки
-          // https://tech.yandex.ru/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/
-          var myPlacemark = new ymaps.Placemark([55.763903, 37.437415], {
-              // Хинт показывается при наведении мышкой на иконку метки.
-              hintContent: '"Крылатское"',
-              // Балун откроется при клике по метке.
-              balloonContent: 'ул. Крылатская, 10с10'
-          });
-  
-          // После того как метка была создана, добавляем её на карту.
-          myMap.geoObjects.add(myPlacemark);
-  
-      }
-  </script>
+
 {% endblock header %} 
 
 {% block style %}
@@ -110,16 +59,6 @@
         <td class="text-center">
           <a href="mailto:saprykin.romka@yandex.ru">
             saprykin.romka@yandex.ru
-          </a>
-        </td>
-      </tr>
-
-      <tr>
-        <th scope="row" class="text-center" style="border-top-width: 0px;">Адрес:</th>
-        <td colspan="2" class="text-center" style="border-top-width: 0px;">
-          Футбольный манеж "Техника спорта"
-          <a href="https://yandex.ru/maps/213/moscow/house/krylatskaya_ulitsa_10s10/Z04YcgRnTUQCQFtvfXt3cnVjZw==/?ll=37.437261%2C55.763399&z=15">
-            г. Москва, ул. Крылатская, 10с10
           </a>
         </td>
       </tr>

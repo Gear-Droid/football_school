@@ -287,9 +287,9 @@
   .registration-container {
     background-image:
       linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-      url({% static 'mainapp/carousel/football.jpg' %});
+      url({% static 'mainapp/football_match.png' %});
     background-size: cover;
-    background-position: center;
+    background-position: bottom;
     background-repeat: no-repeat;
   }
 
@@ -369,6 +369,9 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'galery' %}">Футбольный лагерь</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'filials' %}">Филиалы</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'contacts' %}">Контакты</a>
@@ -503,7 +506,7 @@
           </div>
         </div>
         <div class="col-md-6 about-image-container">
-          <img class="d-block" src="{% static 'mainapp/carousel/football.jpg' %}" alt="First slide">
+          <img class="d-block" src="{% static 'mainapp/about_school.png' %}" alt="First slide">
         </div>
       </div>
       <!-- /about row -->
