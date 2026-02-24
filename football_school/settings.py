@@ -131,7 +131,7 @@ DATABASES = {
         'USER': local_settings.DEFAULT_DATABASE_USER,
         'PASSWORD': local_settings.DEFAULT_DATABASE_PASSWORD,
         'HOST' : '127.0.0.1',
-        'PORT' : '5432',
+        'PASSWORD': local_settings.DEFAULT_DATABASE_PORT
     }
 }
 
